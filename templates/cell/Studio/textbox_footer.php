@@ -1,11 +1,5 @@
 <div class="text-box">
 <?php
-/**
- *  Copyright (C) 2017  Total Studio Kft.
- *  Author: Tamás Gergely
- *  This file is a part of Studio CMS engine.
- *
- */
 
 if ($adminEdit) {
 

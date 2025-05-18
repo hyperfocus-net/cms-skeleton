@@ -1,25 +1,71 @@
 @import 'mixins';
 
 @function v($var) {
-  @return var(--#{$var});
+    @return var(--#{$var});
 }
 
-//Colors
-$black: #111314;
-$white: #FFFFFF;
-$red: #fa5c5c;
-$highlight: #F5A834;
-$fontColor: #737373;
-$bg: #FCF9F8;
-$grid-gutter-width: 15px;
+// Theme colors
+$colors: (
+    light: (
+        Black: #191919,
+        White: #FFFFFF,
+        AlwaysWhite: #FFFFFF,
+        Red: #ff4b4b,
+        Green: #28a745,
+        Orange: #fd7e14,
+        Highlight: #fa2456,
+        FontColor: #808080,
+        Bg: #FFFFFF,
+    ),
+    dark: (
+        Black: rgba(255, 255, 255, 0.87),
+        White: #191919,
+        AlwaysWhite: rgba(255, 255, 255, 0.87),
+        Red: #ff6b6b,
+        Green: #28a745,
+        Orange: #fd7e14,
+        Highlight: #fa2456,
+        FontColor: #d0d0d0,
+        Bg: #121212,
+    )
+);
 
 :root {
-  --mainBlack: #{$black};
-  --mainWhite: #{$white};
-  --mainRed: #{$red};
-  --mainHighlight: #{$highlight};
-  --mainfontColor: #{$fontColor};
-  --bs-gutter-x: #{$grid-gutter-width};
+    @each $color, $value in map-get($colors, 'light') {
+        --main#{$color}: #{$value};
+    }
+}
+
+.dark-mode {
+    @each $color, $value in map-get($colors, 'dark') {
+        --main#{$color}: #{$value};
+    }
+}
+
+.light-mode {
+    @each $color, $value in map-get($colors, 'light') {
+        --main#{$color}: #{$value};
+    }
+}
+
+
+$black: var(--mainBlack);
+$white: var(--mainWhite);
+$alwaysWhite: var(--mainAlwaysWhite);
+$red: var(--mainRed);
+$highlight: var(--mainHighlight);
+$fontColor: var(--mainFontColor);
+$bg: var(--mainBg);
+$grid-gutter-width: 15px;
+
+::-moz-selection { /* Code for Firefox */
+    color: $white;
+    background: $highlight;
+}
+
+::selection {
+    color: $white;
+    background: $highlight;
 }
 
 //fonts
@@ -27,250 +73,253 @@ $fontPrimary: 'Inter', sans-serif;
 $fontSecondary: 'Lora', serif;
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-  font-family: $fontPrimary;
-  color: $black;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-
-  main {
-    flex: 1;
-  }
-
-  h1, h2, h3 {
-    font-family: $fontSecondary;
-  }
-
-  h1 {
-    font-size: 40px;
-    font-weight: 600;
-  }
-
-  a {
-    @include transition(all .2s ease-in-out);
-
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: none;
-    }
-
-    &.more-link {
-      font-size: 16px;
-      fill: $black;
-      color: $black;
-      padding-bottom: 0;
-      border-bottom: 2px solid $highlight;
-      display: inline-block;
-      font-weight: 600;
-
-      &:hover {
-        padding-bottom: 2px;
-      }
-    }
-  }
-
-  img {
-    height: auto;
-  }
-
-  .row {
-    --bs-gutter-x: 30px !important;
-  }
-
-
-  .more{
-    border: none;
-    border-radius: 30px 30px 30px 30px;
-    padding: 10px 32px 10px 32px;
-    font-size: 15px;
-    font-weight: 600;
-    fill: #D78A16;
-    background-color: #D78A16;
+    font-family: $fontPrimary;
     color: $black;
-    margin-top:10px;
-    display: inline-block;
-  }
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    main {
+        flex: 1;
+    }
+
+    h1, h2, h3 {
+        font-family: $fontSecondary;
+    }
+
+    h1 {
+        font-size: 40px;
+        font-weight: 600;
+    }
+
+    a {
+        @include transition(all .2s ease-in-out);
+        color: $highlight;
+        text-decoration: none;
+
+        &:hover {
+            color: $black;
+            text-decoration: none;
+        }
+
+        &.more-link {
+            font-size: 16px;
+            fill: $black;
+            color: $black;
+            padding-bottom: 0;
+            border-bottom: 2px solid $highlight;
+            display: inline-block;
+            font-weight: 600;
+
+            &:hover {
+                padding-bottom: 2px;
+            }
+        }
+    }
+
+    img {
+        height: auto;
+    }
+
+    .row {
+        --bs-gutter-x: 30px !important;
+    }
+
+
+    .more {
+        @include transition(all .5s);
+        border: none;
+        border-radius: 30px 30px 30px 30px;
+        padding: 10px 32px 10px 32px;
+        font-size: 15px;
+        font-weight: 600;
+        fill: $highlight;
+        background-color: $highlight;
+        color: $black;
+        margin-top: 10px;
+        display: inline-block;
+    }
 }
 
 .error-message {
-  color: $red;
+    color: $red;
 }
 
 //header
-.header-fixed{
-  position: fixed;
-  top: 0;
-}
-header {
-  z-index: 50;
-  padding: 0px 0;
-  width: 100%;
-  @include transition(all .2s ease-in-out);
-
-  .logo-holder {
-    text-transform: uppercase;
-    font-family: $fontSecondary;
-    font-size: 24px;
-    font-weight: 600;
-
-    a {
-      color: $black;
-    }
-  }
-
-  .navbar {
-    left: 0;
-    padding: 5px 30px;
-    position: absolute;
-    text-align: left;
+.header-fixed {
+    position: fixed;
     top: 0;
+}
+
+header {
+    z-index: 50;
+    padding: 0px 0;
     width: 100%;
-    z-index: 1;
+    @include transition(all .2s ease-in-out);
 
-    & > .navbar-collapse {
-      & > ul {
-        & > li {
-          padding: 25px 15px;
-          position: relative;
+    .logo-holder {
+        text-transform: uppercase;
+        font-family: $fontSecondary;
+        font-size: 24px;
+        font-weight: 600;
 
-          a {
+        a {
             color: $black;
-            text-transform: uppercase;
-            font-weight: 600;
-            font-size: 14px;
-
-            &:hover {
-              color: $black;
-            }
-
-          }
-
-          &:hover {
-            ul {
-              display: block;
-            }
-          }
-
-          & > ul {
-            display: none;
-            position: absolute;
-            list-style: none;
-            margin: 15px 0;
-            padding: 20px 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: $white;
-            -webkit-box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.08);
-            box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.08);
-
-            li {
-              background-color: $white;
-            }
-          }
         }
-      }
-
     }
 
-    @include lg {
-      background: initial;
-      position: static;
-      width: auto;
-      text-align: right;
-    }
-  }
+    .navbar {
+        left: 0;
+        padding: 5px 30px;
+        position: absolute;
+        text-align: left;
+        top: 0;
+        width: 100%;
+        z-index: 1;
 
-  &.scrolled {
-    background-color: #fcf1ea;
-  }
+        & > .navbar-collapse {
+            & > ul {
+                & > li {
+                    padding: 25px 15px;
+                    position: relative;
+
+                    a {
+                        color: $black;
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        font-size: 14px;
+
+                        &:hover {
+                            color: $black;
+                        }
+
+                    }
+
+                    &:hover {
+                        ul {
+                            display: block;
+                        }
+                    }
+
+                    & > ul {
+                        display: none;
+                        position: absolute;
+                        list-style: none;
+                        margin: 15px 0;
+                        padding: 20px 15px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background-color: $white;
+                        -webkit-box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.08);
+                        box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.08);
+
+                        li {
+                            background-color: $white;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        @include lg {
+            background: initial;
+            position: static;
+            width: auto;
+            text-align: right;
+        }
+    }
+
+    &.scrolled {
+        background-color: #fcf1ea;
+    }
 }
 
 
 //footer
 footer {
-  .footer-top {
-    background: $white;
-    border-top: 1px solid #efefef;
-    font-size: 14px;
-    color: #676f72;
+    .footer-top {
+        background: $white;
+        border-top: 1px solid #efefef;
+        font-size: 14px;
+        color: #676f72;
 
-    .footer-title {
-      font-family: $fontSecondary;
-      color: $black;
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    a {
-      color: $black;
-
-      &:hover {
-        color: $highlight;
-      }
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-
-      li {
-        display: block;
-        line-height: 24px;
-        margin-bottom: 10px;
+        .footer-title {
+            font-family: $fontSecondary;
+            color: $black;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
 
         a {
+            color: $black;
 
+            &:hover {
+                color: $highlight;
+            }
         }
-      }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                display: block;
+                line-height: 24px;
+                margin-bottom: 10px;
+
+                a {
+
+                }
+            }
+        }
+
+        .fab {
+            font-size: 20px;
+            margin-right: 10px;
+        }
     }
 
-    .fab {
-      font-size: 20px;
-      margin-right: 10px;
+    .footer-bottom {
+        background: $white;
+        border-top: 1px solid #efefef;
     }
-  }
-
-  .footer-bottom {
-    background: $white;
-    border-top: 1px solid #efefef;
-  }
 }
 
 
 #toTop {
-  background: $highlight;
-  border: none;
-  bottom: 30px;
-  color: $white;
-  font-size: 28px;
-  height: 50px;
-  line-height: 50px;
-  padding: 0;
-  position: fixed;
-  right: 30px;
-  text-align: center;
-  width: 50px;
-  z-index: 100;
-  @include md {
-    bottom: 60px;
-    right: 40px;
-  }
-  @include lg {
-    bottom: 60px;
-    right: 40px;
-  }
+    background: $highlight;
+    border: none;
+    bottom: 30px;
+    color: $white;
+    font-size: 28px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+    position: fixed;
+    right: 30px;
+    text-align: center;
+    width: 50px;
+    z-index: 100;
+    @include md {
+        bottom: 60px;
+        right: 40px;
+    }
+    @include lg {
+        bottom: 60px;
+        right: 40px;
+    }
 
-  &:focus {
-    outline: none;
-  }
+    &:focus {
+        outline: none;
+    }
 }
 
 

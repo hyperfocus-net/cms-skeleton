@@ -2,6 +2,17 @@
 <html lang="<?= $lng ?>">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+        }else if (localStorage.getItem('theme') === 'light'){
+            document.documentElement.classList.add('light-mode');
+        }else{
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            localStorage.setItem('theme', prefersDark ? 'dark' : 'light');
+            document.documentElement.classList.add(prefersDark ?'dark-mode' : 'light-mode');
+        }
+    </script>
     <?php
 
     echo $this->Html->charset();
@@ -92,7 +103,7 @@ echo $this->TsHtml->initPopup(['class' => 'modal-lg']);
 echo '<button id="toTop" class="d-none" title="Az oldal tetejére"><i class="fas fa-angle-up"></i></button>';
 echo $this->element('footer', [], ['plugin' => false]);
 
-echo $this->TsHtml->getFontawesome('5_13_0', ['solid-900', 'brands-400'], ['solid', 'brands']);
+echo $this->TsHtml->getFontawesome('6_5_1', ['solid-900', 'brands-400'], ['solid', 'brands']);
 
 echo $this->Html->css([
     'TSCms./lib/fancybox/3_x/dist/jquery.fancybox.min.css',

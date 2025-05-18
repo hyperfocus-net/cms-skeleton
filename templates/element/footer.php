@@ -42,9 +42,9 @@
                     <?= __d('t_s_cms', 'Minden jog fenntartva.') . ' ' . date('Y') ?>
                 </div>
                 <div class="col-12 col-md-3 text-center text-md-end">
-                    <a href="https://www.totalstudio.hu" class="totalstudio" rel="nofollow">
-                        <img src="https://www.totalstudio.hu/copyright/totalstudio_svg.php?site=totalstudio&c=000000"
-                             alt="TotalStudio" title="Az oldalt a TotalStudio készítette"
+                    <a target="_blank" href="https://hyperfocus.net" class="hyperfocus" rel="nofollow">
+                        <img src="/img/hf_logo_dark.webp"
+                             alt="Hyperfocus" title="Az oldalt a Hyperfocus készítette"
                              width="150" height="30">
                     </a>
                 </div>

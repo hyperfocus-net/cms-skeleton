@@ -1,10 +1,4 @@
 <?php
-/**
- *  Copyright (C) 2017  Total Studio Kft.
- *  Author: Tamás Gergely
- *  This file is a part of Studio CMS engine.
- *
- */
 /** @var \App\View\AppView $this */
 
 if (!empty($widget->special['my_map'])) {
