@@ -21,6 +21,7 @@ ehthumbs.db
 Thumbs.db
 .directory
 composer.lock
+composer.local.json
 auth.json
 
 # Tool specific files #
