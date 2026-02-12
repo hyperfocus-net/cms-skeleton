@@ -42,6 +42,7 @@ use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Database\Type\StringType;
 use Cake\Database\TypeFactory;
 use Cake\Datasource\ConnectionManager;
+use Cake\Error\Debugger;
 use Cake\Error\ErrorTrap;
 use Cake\Error\ExceptionTrap;
 use Cake\Http\ServerRequest;
@@ -67,7 +68,14 @@ use Cake\Utility\Security;
 */
  if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
      $dotenv = new \josegonzalez\Dotenv\Loader([CONFIG . '.env']);
-     $dotenv->parse()
+     $dotenv->parse();
+     $dotenvData = $dotenv->toArray();
+
+     if (env('DEBUG') || (isset($dotenvData['DEBUG']) && filter_var($dotenvData['DEBUG'], FILTER_VALIDATE_BOOLEAN))) {
+         Debugger::setOutputMask(array_fill_keys(array_keys($dotenvData), '**********'));
+     }
+     
+     $dotenv
          ->putenv()
          ->toEnv()
          ->toServer();
